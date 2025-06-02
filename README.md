@@ -40,7 +40,7 @@ let tomato = { name: 'Tomato', price: 2 };
 let potato = { name: 'Potato', price: 1 };
 let carrot = { name: 'Carrot' };
 
-let vegetables: { name: string; price: number }[]? = [tomato, potato, carrot]; // ? here is **Optional Modifier**
+let vegetables: { name: string; price: number }[]? = [tomato, potato, carrot]; // here, ? is Optional Modifier
 ```
 
 **The readonly Modifier**

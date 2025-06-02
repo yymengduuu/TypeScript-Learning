@@ -35,13 +35,14 @@ let carOne: { car: string; brand: number } = { car: 'Evil Spirit', brand: 2025, 
 
 In TypeScript, we often deal with arrays of objects, where each object has a specific structure. TypeScript helps ensure that every object in the array conforms to the expected type.
 
-···
+```
 let tomato = { name: 'Tomato', price: 2 };
 let potato = { name: 'Potato', price: 1 };
 let carrot = { name: 'Carrot' };
 
 let vegetables: { name: string; price: number }[]? = [tomato, potato, carrot]; // ? here is **Optional Modifier**
-···
+```
+
 **The readonly Modifier**
 In TypeScript, the readonly modifier is a great way to ensure that certain properties or entire objects remain immutable. This is particularly useful when you want to prevent accidental changes to your data.
 

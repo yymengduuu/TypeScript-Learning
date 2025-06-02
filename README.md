@@ -134,7 +134,8 @@ console.log(getUserInfo(user)); // Output: Alice (30 years old) lives at 123 Mai
 
 - In most cases, you can use interfaces or type aliases interchangeably to define object types.
 
-**Extending with Interfaces and Type Aliases**
+**_Extending with Interfaces and Type Aliases_**
+
 Extending Interfaces:
 
 ```
@@ -180,3 +181,98 @@ const user: User = {
 ---
 
 ## Tuples and Enums
+
+### Tuple
+
+A tuple in TypeScript is a special type of array that has a fixed number of elements, where each element can have a different type. Tuples ensure that the order and types of values remain consistent.
+
+```
+// A tuple with a string and a number
+let user: [string, number] = ["Alice", 25];
+
+console.log(user[0]); // Output: Alice
+console.log(user[1]); // Output: 25
+```
+
+### Enum
+
+An enum in TypeScript is a way to define a set of named constants. Enums make code more readable and help manage a fixed set of values.
+
+- Numeric Enums (Default):
+
+```
+enum Status {
+  Pending,   // 0
+  InProgress, // 1
+  Completed,  // 2
+}
+
+console.log(Status.Pending);   // Output: 0
+console.log(Status.Completed); // Output: 2
+```
+
+- Custom Number Values in Enums:
+
+```
+enum OrderStatus {
+  Pending = 1,
+  Shipped = 5,
+  Delivered = 10,
+}
+
+console.log(OrderStatus.Shipped); // Output: 5
+```
+
+---
+
+## Type Assertion
+
+### method 1:
+
+```
+let value: unknown = "Hello, TypeScript!";
+
+// Using type assertion to treat 'value' as a string
+let strLength: number = (value as string).length;
+
+console.log(strLength); // Output: 18
+```
+
+Here, value is initially unknown, but type assertion (as string) allows treating it as a string.
+
+### method 2:
+
+```
+let num = <number>(10);
+console.log(num); // Output: 10
+```
+
+### method 3:
+
+```
+let data: unknown;
+
+data = "Hello";
+data = 42;
+data = true;
+
+// Type checking before using the value
+if (typeof data === "string") {
+  console.log(data.toUpperCase()); // Works only if data is a string
+}
+```
+
+Since data is unknown, TypeScript does not allow direct operations without checking its type first.
+
+## Generics in TypeScript
+
+Generics allow writing flexible, reusable, and type-safe code. Instead of specifying a fixed type, generics let a function, class, or interface work with multiple types while maintaining type safety.
+
+```
+function reverseArray<T>(arr: T[]): T[] {
+  return arr.reverse();
+}
+
+console.log(reverseArray<number>([1, 2, 3]));  // Output: [3, 2, 1]
+console.log(reverseArray<string>(["A", "B", "C"])); // Output: ["C", "B", "A"]
+```

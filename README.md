@@ -43,7 +43,8 @@ let carrot = { name: 'Carrot' };
 let vegetables: { name: string; price: number }[]? = [tomato, potato, carrot]; // here, ? is Optional Modifier
 ```
 
-**The readonly Modifier**
+**_The readonly Modifier_**
+
 In TypeScript, the readonly modifier is a great way to ensure that certain properties or entire objects remain immutable. This is particularly useful when you want to prevent accidental changes to your data.
 
 - readonly on properties ensures individual fields of objects cannot be changed.

@@ -1,9 +1,11 @@
-//import React, { useState } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import InputFields from "./components/InputFields";
 import TodoList from "./components/TodoList";
 //import { DragDropContext } from "@hello-pangea/dnd";
 //import type { DropResult } from "@hello-pangea/dnd";
+
+const [input, setInput] = useState("");
 
 export default function App() {
   return (

@@ -26,11 +26,16 @@ export default function SingleTask({ task, index }: Props) {
     <div className="single-task" key={index} style={styles}>
       <span className="task-text">{task.text}</span>
       <div className="icon">
-        <AiFillEdit className="icon-edit" />
-
-        <AiFillDelete className="icon-delete" />
-
-        <MdDone className="icon-done" />
+        <span>
+          {" "}
+          <AiFillEdit className="icon-edit" />
+        </span>
+        <span>
+          <AiFillDelete className="icon-delete" />
+        </span>
+        <span>
+          <MdDone className="icon-done" />
+        </span>
       </div>
     </div>
   );

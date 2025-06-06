@@ -10,6 +10,14 @@ interface Props {
 }
 
 export default function SingleTask({ task, index }: Props) {
+  const handleComplete = () => {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === task.id) return{...t, t.isDone: !isDone};
+      })
+    );
+  };
+
   const styles = {
     backgroundColor: task.color,
     color: "#fff",
@@ -32,7 +40,7 @@ export default function SingleTask({ task, index }: Props) {
         <span className="icon">
           <AiFillDelete className="icon-delete" />
         </span>
-        <span className="icon">
+        <span className="icon" onClick={handleComplete}>
           <MdDone className="icon-done" />
         </span>
       </div>

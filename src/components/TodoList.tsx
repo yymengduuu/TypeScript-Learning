@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import SingleTask from "./SingleTask.tsx";
 import type { Task } from "../model";
 // import { Droppable } from "@hello-pangea/dnd";
@@ -13,7 +13,13 @@ export default function TodoList({ tasks, setTasks }: Props) {
       <form className="task-todo">
         <span className="task-title">Active Tasks</span>
         {tasks.map((task, index) => (
-          <SingleTask key={task.id} task={task} index={index} />
+          <SingleTask
+            key={task.id}
+            task={task}
+            tasks={tasks}
+            index={index}
+            setTasks={setTasks}
+          />
         ))}
       </form>
       <form className="task-completed">

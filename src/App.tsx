@@ -25,7 +25,10 @@ export default function App() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (task) {
-      setTasks([{ id: Date.now(), text: task, color: randomColor }, ...tasks]);
+      setTasks([
+        { id: Date.now(), text: task, color: randomColor, isDone: false },
+        ...tasks,
+      ]);
       setTask("");
     }
   };

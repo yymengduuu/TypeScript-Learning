@@ -7,13 +7,23 @@ import { MdDone } from "react-icons/md";
 interface Props {
   index: number;
   task: Task;
+  tasks: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-export default function SingleTask({ task, index }: Props) {
+export default function SingleTask({ task, tasks, index, setTasks }: Props) {
+  const handleDelete = () => {
+    setTasks(tasks.filter((t) => t.id !== task.id));
+  };
+
   const handleComplete = () => {
     setTasks(
       tasks.map((t) => {
-        if (t.id === task.id) return{...t, t.isDone: !isDone};
+        if (t.id === task.id) {
+          return { ...t, isDone: !t.isDone };
+        } else {
+          return t;
+        }
       })
     );
   };
@@ -32,12 +42,17 @@ export default function SingleTask({ task, index }: Props) {
 
   return (
     <div className="single-task" key={index} style={styles}>
-      <span className="task-text">{task.text}</span>
+      {!task.isDone ? (
+        <span className="task-text">{task.text}</span>
+      ) : (
+        <s className="task-text">{task.text}</s>
+      )}
+
       <div>
         <span className="icon">
           <AiFillEdit className="icon-edit" />
         </span>
-        <span className="icon">
+        <span className="icon" onClick={handleDelete}>
           <AiFillDelete className="icon-delete" />
         </span>
         <span className="icon" onClick={handleComplete}>

@@ -25,15 +25,14 @@ export default function SingleTask({ task, index }: Props) {
   return (
     <div className="single-task" key={index} style={styles}>
       <span className="task-text">{task.text}</span>
-      <div className="icon">
-        <span>
-          {" "}
+      <div>
+        <span className="icon">
           <AiFillEdit className="icon-edit" />
         </span>
-        <span>
+        <span className="icon">
           <AiFillDelete className="icon-delete" />
         </span>
-        <span>
+        <span className="icon">
           <MdDone className="icon-done" />
         </span>
       </div>

@@ -137,10 +137,11 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  margin-top: 15px;
   border-radius: 12px;
-  color: white;
   transition: transform 0.2s ease;
+  color: "#fff";
+  width: "300px";
+  height: "30px";
 }
 
 .todos__single:hover .todos__single__inner {

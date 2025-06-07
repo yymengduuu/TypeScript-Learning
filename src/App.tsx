@@ -36,13 +36,7 @@ export default function App() {
   return (
     <div className="App">
       <header>Taskify</header>
-      <InputFields
-        task={task}
-        setTask={setTask}
-        tasks={tasks}
-        setTasks={setTasks}
-        handleSubmit={handleSubmit}
-      />
+      <InputFields task={task} setTask={setTask} handleSubmit={handleSubmit} />
       <TodoList tasks={tasks} setTasks={setTasks} />
     </div>
   );

@@ -1,20 +1,12 @@
-import React, { useRef } from "react";
+import React from "react";
 
 interface Props {
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>;
-  tasks: string[];
-  setTasks: React.Dispatch<React.SetStateAction<string[]>>;
   handleSubmit: (e: React.FormEvent) => void;
 }
 
-export default function InputFields({
-  task,
-  setTask,
-  tasks,
-  setTasks,
-  handleSubmit,
-}: Props) {
+export default function InputFields({ task, setTask, handleSubmit }: Props) {
   return (
     <div className="input-container">
       <form className="input-form" onSubmit={handleSubmit}>

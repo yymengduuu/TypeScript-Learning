@@ -47,7 +47,30 @@ export default function App() {
   // }
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
+
     if (!destination) return;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    const sourceList =
+      source.droppableId === "ActiveTasks" ? tasks : completedTasks;
+    const setSourceList =
+      source.droppableId === "ActiveTasks" ? setTasks : setCompletedTasks;
+
+    const destinationList =
+      source.droppableId === "ActiveTasks" ? tasks : completedTasks;
+    const setDestinationList =
+      source.droppableId === "ActiveTasks" ? setTasks : setCompletedTasks;
+
+    const [moveTask] = sourceList.splice(source.index, 1);
+
+    destinationList.splice(destination.index, 0, moveTask);
+
+    setSourceList([...sourceList]);
+    setDestinationList([...destinationList]);
   };
 
   return (

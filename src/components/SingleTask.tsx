@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { Task } from "../model.ts";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
-//import { Draggable } from "@hello-pangea/dnd";
+import { Draggable } from "@hello-pangea/dnd";
 
 interface Props {
   index: number;
@@ -46,36 +46,46 @@ export default function SingleTask({ task, tasks, index, setTasks }: Props) {
   };
 
   return (
-    <div className="single-task" key={index} style={styles}>
-      {edit ? (
-        <input
-          className="task-edit"
-          value={editTask}
-          onChange={(e) => setEditTask(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleEdit(e);
-            }
-          }}
-        />
-      ) : !task.isDone ? (
-        <span className="task-text">{task.text}</span>
-      ) : (
-        <s className="task-text">{task.text}</s>
+    <Draggable draggableId={task.id.toString()} index={index}>
+      {(provided) => (
+        <div
+          className="single-task"
+          key={index}
+          style={styles}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {edit ? (
+            <input
+              className="task-edit"
+              value={editTask}
+              onChange={(e) => setEditTask(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleEdit(e);
+                }
+              }}
+            />
+          ) : !task.isDone ? (
+            <span className="task-text">{task.text}</span>
+          ) : (
+            <s className="task-text">{task.text}</s>
+          )}
+          <div>
+            <span className="icon" onClick={() => setEdit(!edit)}>
+              <AiFillEdit className="icon-edit" />
+            </span>
+            <span className="icon" onClick={handleDelete}>
+              <AiFillDelete className="icon-delete" />
+            </span>
+            <span className="icon" onClick={edit ? handleEdit : handleComplete}>
+              <MdDone className="icon-done" />
+            </span>
+          </div>
+        </div>
       )}
-
-      <div>
-        <span className="icon" onClick={() => setEdit(!edit)}>
-          <AiFillEdit className="icon-edit" />
-        </span>
-        <span className="icon" onClick={handleDelete}>
-          <AiFillDelete className="icon-delete" />
-        </span>
-        <span className="icon" onClick={edit ? handleEdit : handleComplete}>
-          <MdDone className="icon-done" />
-        </span>
-      </div>
-    </div>
+    </Draggable>
   );
 }

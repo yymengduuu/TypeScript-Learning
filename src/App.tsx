@@ -3,12 +3,13 @@ import "./index.css";
 import InputFields from "./components/InputFields";
 import TodoList from "./components/TodoList";
 import type { Task } from "./model.ts";
-//import { DragDropContext } from "@hello-pangea/dnd";
+import { DragDropContext } from "@hello-pangea/dnd";
 //import type { DropResult } from "@hello-pangea/dnd";
 
 export default function App() {
   const [task, setTask] = useState<string>("");
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
 
   const colorPlatte = [
     "#7c3aed",
@@ -37,7 +38,12 @@ export default function App() {
     <div className="App">
       <header>Taskify</header>
       <InputFields task={task} setTask={setTask} handleSubmit={handleSubmit} />
-      <TodoList tasks={tasks} setTasks={setTasks} />
+      <TodoList
+        tasks={tasks}
+        setTasks={setTasks}
+        completedTask={completedTasks}
+        setCompletedTask={setCompletedTasks}
+      />
     </div>
   );
 }

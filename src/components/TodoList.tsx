@@ -6,8 +6,15 @@ import type { Task } from "../model";
 interface Props {
   tasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  completedTasks: Task[];
+  setCompletedTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
-export default function TodoList({ tasks, setTasks }: Props) {
+export default function TodoList({
+  tasks,
+  setTasks,
+  completedTasks,
+  setCompletedTasks,
+}: Props) {
   return (
     <div className="todo-list">
       <form className="task-todo">
@@ -24,6 +31,15 @@ export default function TodoList({ tasks, setTasks }: Props) {
       </form>
       <form className="task-completed">
         <span className="task-title">Completed Tasks</span>
+        {tasks.map((task, index) => (
+          <SingleTask
+            key={task.id}
+            task={task}
+            tasks={completedTasks}
+            index={index}
+            setTasks={setCompletedTasks}
+          />
+        ))}
       </form>
     </div>
   );

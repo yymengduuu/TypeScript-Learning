@@ -24,7 +24,7 @@ export default function InputFields({
           placeholder="Add a new task"
           value={task}
           onChange={(e) => setTask(e.target.value)}
-        ></input>
+        />
         <button className="btn-input" type="submit">
           Add
         </button>

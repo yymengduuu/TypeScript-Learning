@@ -1,4 +1,4 @@
-//import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import type { Task } from "../model.ts";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -12,19 +12,24 @@ interface Props {
 }
 
 export default function SingleTask({ task, tasks, index, setTasks }: Props) {
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editTask, setEditTask] = useState<string>(task.text);
+
+  const handleEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTasks(
+      tasks.map((t) => (t.id === task.id ? { ...t, text: editTask } : t))
+    );
+    setEdit(false);
+  };
+
   const handleDelete = () => {
     setTasks(tasks.filter((t) => t.id !== task.id));
   };
 
   const handleComplete = () => {
     setTasks(
-      tasks.map((t) => {
-        if (t.id === task.id) {
-          return { ...t, isDone: !t.isDone };
-        } else {
-          return t;
-        }
-      })
+      tasks.map((t) => (t.id === task.id ? { ...t, isDone: !t.isDone } : t))
     );
   };
 
@@ -42,20 +47,32 @@ export default function SingleTask({ task, tasks, index, setTasks }: Props) {
 
   return (
     <div className="single-task" key={index} style={styles}>
-      {!task.isDone ? (
+      {edit ? (
+        <input
+          className="task-edit"
+          value={editTask}
+          onChange={(e) => setEditTask(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleEdit(e);
+            }
+          }}
+        />
+      ) : !task.isDone ? (
         <span className="task-text">{task.text}</span>
       ) : (
         <s className="task-text">{task.text}</s>
       )}
 
       <div>
-        <span className="icon">
+        <span className="icon" onClick={() => setEdit(!edit)}>
           <AiFillEdit className="icon-edit" />
         </span>
         <span className="icon" onClick={handleDelete}>
           <AiFillDelete className="icon-delete" />
         </span>
-        <span className="icon" onClick={handleComplete}>
+        <span className="icon" onClick={edit ? handleEdit : handleComplete}>
           <MdDone className="icon-done" />
         </span>
       </div>

@@ -165,7 +165,7 @@ header {
   margin-bottom: 10px;
 }
 
-.todos__single--text:focus {
+.task-edit:focus {
   outline: none;
 }
 

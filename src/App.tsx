@@ -35,15 +35,21 @@ export default function App() {
   };
 
   return (
-    <div className="App">
-      <header>Taskify</header>
-      <InputFields task={task} setTask={setTask} handleSubmit={handleSubmit} />
-      <TodoList
-        tasks={tasks}
-        setTasks={setTasks}
-        completedTask={completedTasks}
-        setCompletedTask={setCompletedTasks}
-      />
-    </div>
+    <DragDropContext>
+      <div className="App">
+        <header>Taskify</header>
+        <InputFields
+          task={task}
+          setTask={setTask}
+          handleSubmit={handleSubmit}
+        />
+        <TodoList
+          tasks={tasks}
+          setTasks={setTasks}
+          completedTasks={completedTasks}
+          setCompletedTasks={setCompletedTasks}
+        />
+      </div>
+    </DragDropContext>
   );
 }

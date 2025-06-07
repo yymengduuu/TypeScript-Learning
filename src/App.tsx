@@ -4,7 +4,7 @@ import InputFields from "./components/InputFields";
 import TodoList from "./components/TodoList";
 import type { Task } from "./model.ts";
 import { DragDropContext } from "@hello-pangea/dnd";
-//import type { DropResult } from "@hello-pangea/dnd";
+import type { DropResult } from "@hello-pangea/dnd";
 
 export default function App() {
   const [task, setTask] = useState<string>("");
@@ -34,8 +34,24 @@ export default function App() {
     }
   };
 
+  //    type DropResult = {
+  //   draggableId: string; // 被拖动的元素 ID（你传的 task.id）
+  //   source: {
+  //     droppableId: string; // 起点容器 ID（比如 "ActiveTasks"）
+  //     index: number;       // 在容器中的原始位置
+  //   };
+  //   destination: {
+  //     droppableId: string; // 目标容器 ID（比如 "CompletedTasks"）
+  //     index: number;       // 要插入的位置
+  //   } | null;               // 拖到空白区域时为 null
+  // }
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination) return;
+  };
+
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
         <header>Taskify</header>
         <InputFields

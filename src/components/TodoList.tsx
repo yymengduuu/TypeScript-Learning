@@ -18,9 +18,11 @@ export default function TodoList({
   return (
     <div className="todo-list">
       <Droppable droppableId="ActiveTasks">
-        {(provided) => (
+        {(provided, snapshot) => (
           <form
-            className="task-todo"
+            className={`task-active ${
+              snapshot.isDraggingOver ? "dragactive" : ""
+            }`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -34,14 +36,15 @@ export default function TodoList({
                 setTasks={setTasks}
               />
             ))}
-            {provided.placeholder}
           </form>
         )}
       </Droppable>
       <Droppable droppableId="CompletedTasks">
-        {(provided) => (
+        {(provided, snapshot) => (
           <form
-            className="task-completed"
+            className={`task-completed ${
+              snapshot.isDraggingOver ? "dragcomplete" : ""
+            }`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -55,7 +58,6 @@ export default function TodoList({
                 setTasks={setCompletedTasks}
               />
             ))}
-            {provided.placeholder}
           </form>
         )}
       </Droppable>

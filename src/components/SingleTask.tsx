@@ -12,6 +12,7 @@ interface Props {
 }
 
 export default function SingleTask({ task, tasks, index, setTasks }: Props) {
+  console.log("rendering task", task.text, "with color", task.color);
   const [edit, setEdit] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<string>(task.text);
 
@@ -33,58 +34,54 @@ export default function SingleTask({ task, tasks, index, setTasks }: Props) {
     );
   };
 
-  const styles = {
-    backgroundColor: task.color,
-    color: "#fff",
-    width: "300px",
-    height: "30px",
-    margin: "15px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "8px",
-  };
-
   return (
     <Draggable draggableId={task.id.toString()} index={index}>
       {(provided) => (
-        <div
+        <form
           className="single-task"
           key={index}
-          style={styles}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {edit ? (
-            <input
-              className="task-edit"
-              value={editTask}
-              onChange={(e) => setEditTask(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleEdit(e);
-                }
-              }}
-            />
-          ) : !task.isDone ? (
-            <span className="task-text">{task.text}</span>
-          ) : (
-            <s className="task-text">{task.text}</s>
-          )}
-          <div>
-            <span className="icon" onClick={() => setEdit(!edit)}>
-              <AiFillEdit className="icon-edit" />
-            </span>
-            <span className="icon" onClick={handleDelete}>
-              <AiFillDelete className="icon-delete" />
-            </span>
-            <span className="icon" onClick={edit ? handleEdit : handleComplete}>
-              <MdDone className="icon-done" />
-            </span>
+          <div
+            className="single-task-inner"
+            style={{ backgroundColor: task.color, color: "#fff" }}
+          >
+            {edit ? (
+              <input
+                className="task-edit"
+                name="task"
+                value={editTask}
+                onChange={(e) => setEditTask(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleEdit(e);
+                  }
+                }}
+              />
+            ) : !task.isDone ? (
+              <span className="task-text">{task.text}</span>
+            ) : (
+              <s className="task-text">{task.text}</s>
+            )}
+            <div>
+              <span className="icon" onClick={() => setEdit(!edit)}>
+                <AiFillEdit className="icon-edit" />
+              </span>
+              <span className="icon" onClick={handleDelete}>
+                <AiFillDelete className="icon-delete" />
+              </span>
+              <span
+                className="icon"
+                onClick={edit ? handleEdit : handleComplete}
+              >
+                <MdDone className="icon-done" />
+              </span>
+            </div>
           </div>
-        </div>
+        </form>
       )}
     </Draggable>
   );

@@ -8,10 +8,11 @@ interface Props {
 
 export default function InputFields({ task, setTask, handleSubmit }: Props) {
   return (
-    <div className="input-container">
+    <div>
       <form className="input-form" onSubmit={handleSubmit}>
         <input
           className="input-field"
+          name="task"
           type="text"
           placeholder="Add a new task"
           value={task}

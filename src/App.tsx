@@ -20,14 +20,14 @@ export default function App() {
     "#6366f1",
     "#8b5cf6",
   ];
-  const randomColor =
+  const getRandomColor = () =>
     colorPlatte[Math.floor(Math.random() * colorPlatte.length)];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (task) {
       setTasks([
-        { id: Date.now(), text: task, color: randomColor, isDone: false },
+        { id: Date.now(), text: task, color: getRandomColor(), isDone: false },
         ...tasks,
       ]);
       setTask("");
@@ -45,6 +45,7 @@ export default function App() {
   //     index: number;       // 要插入的位置
   //   } | null;               // 拖到空白区域时为 null
   // }
+
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
@@ -55,22 +56,26 @@ export default function App() {
     )
       return;
 
-    const sourceList =
-      source.droppableId === "ActiveTasks" ? tasks : completedTasks;
-    const setSourceList =
-      source.droppableId === "ActiveTasks" ? setTasks : setCompletedTasks;
+    let movedTask;
+    const active = [...tasks];
+    const complete = [...completedTasks];
 
-    const destinationList =
-      source.droppableId === "ActiveTasks" ? tasks : completedTasks;
-    const setDestinationList =
-      source.droppableId === "ActiveTasks" ? setTasks : setCompletedTasks;
+    if (source.droppableId === "ActiveTasks") {
+      movedTask = active[source.index];
+      active.splice(source.index, 1);
+    } else {
+      movedTask = complete[source.index];
+      complete.splice(source.index, 1);
+    }
 
-    const [moveTask] = sourceList.splice(source.index, 1);
+    if (destination.droppableId === "ActiveTasks") {
+      active.splice(destination.index, 0, movedTask);
+    } else {
+      complete.splice(destination.index, 0, movedTask);
+    }
 
-    destinationList.splice(destination.index, 0, moveTask);
-
-    setSourceList([...sourceList]);
-    setDestinationList([...destinationList]);
+    setTasks(active);
+    setCompletedTasks(complete);
   };
 
   return (

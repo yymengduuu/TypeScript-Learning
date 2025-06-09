@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 interface Props {
   task: string;
@@ -7,15 +7,23 @@ interface Props {
 }
 
 export default function InputFields({ task, setTask, handleSubmit }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
     <div>
-      <form className="input-form" onSubmit={handleSubmit}>
+      <form
+        className="input-form"
+        onSubmit={(e) => {
+          handleSubmit(e);
+          inputRef.current?.blur();
+        }}
+      >
         <input
           className="input-field"
           name="task"
           type="text"
           placeholder="Add a new task"
           value={task}
+          ref={inputRef}
           onChange={(e) => setTask(e.target.value)}
         />
         <button className="btn-input" type="submit">

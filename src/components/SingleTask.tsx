@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import type { Task } from "../model.ts";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -15,6 +15,12 @@ export default function SingleTask({ task, tasks, index, setTasks }: Props) {
   console.log("rendering task", task.text, "with color", task.color);
   const [edit, setEdit] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<string>(task.text);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
 
   const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
